@@ -2,12 +2,15 @@
 
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
+const Store = require('electron-store');
+const path = require("path");
 
-const createWindow = () => {
+const createWindow = (bounds) => {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 245,
+        x: bounds?.x,
+        y: bounds?.y,
+        width: bounds?.width ?? 245,
         height: 50,
         minHeight: 49,
         maxHeight: 51,
@@ -19,24 +22,24 @@ const createWindow = () => {
         }
     })
 
-    // and load the index.html of the app.
     mainWindow.loadFile('index.html')
-
-    // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    return mainWindow;
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-    createWindow()
 
-    app.on('activate', () => {
-        // On macOS it's common to re-create a window in the app when the
-        // dock icon is clicked and there are no other windows open.
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
-    })
+
+app.whenReady().then(() => {
+
+    const store = new Store();
+    const bounds = store.get('bounds');
+    const mainWindow = createWindow(bounds)
+
+    const saveBounds = () => {
+        store.set('bounds', mainWindow.getBounds());
+    }
+
+    mainWindow.on('moved', saveBounds);
+    mainWindow.on('resized', saveBounds);
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

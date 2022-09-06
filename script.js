@@ -1,3 +1,4 @@
+
 window.onload = () => {
     const inputs = Array(3).fill(0).map((v, i) => document.getElementById(`input${i + 1}`));
     const bars = Array(3).fill(0).map((v, i) => document.getElementById(`bar${i + 1}`));
@@ -22,5 +23,6 @@ window.onload = () => {
 
     closeButton.addEventListener('click', e => {
         window.close();
+
     })
 }
