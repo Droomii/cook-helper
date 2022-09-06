@@ -10,7 +10,6 @@ window.onload = () => {
 
         bars.forEach((v, i) => {
             const val = Math.round((inputs[i].valueAsNumber / total) * 100)
-            console.log(val)
             v.style.width = val + '%';
         })
         e.currentTarget.blur();
