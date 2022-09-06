@@ -103,7 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-/out
 /out/cook-helper-win32-x64/locales/af.pak
 /out/cook-helper-win32-x64/locales/am.pak
 /out/cook-helper-win32-x64/locales/ar.pak
@@ -198,3 +197,4 @@ dist
 /out/make/squirrel.windows/x64/cook_helper-1.0.0-full.nupkg
 /out/make/squirrel.windows/x64/RELEASES
 /out/make/squirrel.windows/x64/Setup.exe
+/out/
