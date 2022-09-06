@@ -5,17 +5,15 @@ window.onload = () => {
     const closeButton = document.getElementById('close');
 
     const changeHandler = e => {
-        const val = Math.floor(Math.max(Math.min(e.currentTarget.valueAsNumber, 100), 0));
-        e.currentTarget.valueAsNumber = val;
-        if (inputs.reduce((acc, v) => acc + v.valueAsNumber, 0) === 100) {
-            bars.forEach((v, i) => {
-                v.style.width = inputs[i].valueAsNumber + '%';
-            })
-            message.innerText = ''
-            e.currentTarget.blur();
-        } else {
-            message.innerText = '비율을 100%로 맞춰주세요.'
-        }
+        e.currentTarget.valueAsNumber = Math.floor(Math.min(e.currentTarget.valueAsNumber, 100));
+        const total = inputs.reduce((acc, v) => acc + v.valueAsNumber, 0);
+
+        bars.forEach((v, i) => {
+            const val = Math.round((inputs[i].valueAsNumber / total) * 100)
+            console.log(val)
+            v.style.width = val + '%';
+        })
+        e.currentTarget.blur();
     }
 
     inputs.forEach(v => v.addEventListener('change', changeHandler))
